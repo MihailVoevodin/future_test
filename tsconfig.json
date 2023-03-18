@@ -1,26 +1,45 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
-  },
-  "include": [
-    "src"
-  ]
+    "allowJs": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "jsx": "react",
+    "target": "es5",
+    "baseUrl": "src",
+    "outDir": "out",
+
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
+    "strict": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": false,
+    "noEmitOnError": false,
+    "noErrorTruncation": true,
+    "keyofStringsOnly": true,
+    "plugins": [{
+      "name": "typescript-plugin-css-modules"
+    }]
+  }
 }
