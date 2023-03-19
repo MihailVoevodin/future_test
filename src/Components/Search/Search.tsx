@@ -1,21 +1,23 @@
+import React, {FormEvent} from "react"
 import {useAppDispatch, useAppSelector} from 'Common/Hooks';
-import React, {FormEvent, useState} from "react"
-import {loadBooksList} from 'Store/Slice';
+import {loadBooksList, setBooksList, setInputValue} from 'Store/Slice';
+import {SearchOutlined} from '@ant-design/icons';
+import styles from 'Components/Search/Search.module.css';
 
 export const Search = () => {
     const dispatch = useAppDispatch()
-    const {startIndex} = useAppSelector((state) => state.books);
-    const [inputValue, setInputValue] = useState<string>('')
+    const {startIndex, inputValue, sorting, filter} = useAppSelector((state) => state.books);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        dispatch(loadBooksList({inputValue, startIndex}))
+        dispatch(setBooksList())
+        dispatch(loadBooksList({inputValue, startIndex, sorting, filter}))
     }
 
     return (
         <form onSubmit={onSubmit}>
-            <input onChange={(event) => setInputValue(event.target.value)} type='text' placeholder='Искать книгу'/>
-            <button type='submit'></button>
+                <input className={styles.input} onChange={(event) => dispatch(setInputValue((event.target.value)))} type='text' placeholder='Find books'/>
+                <button className={styles.button} type='submit'><SearchOutlined /></button>
         </form>
     )
 }

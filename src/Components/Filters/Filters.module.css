@@ -1,0 +1,16 @@
+.filtrationWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.filtrationWrapper select {
+    margin-left: 10px;
+    width: 100px;
+    height: 30px;
+}
+
+.filtrationWrapper div:first-child {
+    margin-right: 10px;
+}

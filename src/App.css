@@ -1,4 +1,23 @@
 .App {
   box-sizing: border-box;
   text-align: center;
+  color: black;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1 {
+  margin: 0;
+  padding-bottom: 20px;
+}
+
+header {
+  color: white;
+  background-image: url("assets/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 20px 0;
 }

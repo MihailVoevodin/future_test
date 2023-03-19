@@ -1,0 +1,16 @@
+.input {
+    outline: none;
+    margin: 0 auto;
+    width: 260px;
+    height: 21px;
+    padding: 3px 30px 3px 5px;
+}
+
+.button {
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid #000;
+    height: 31px;
+    width: 31px;
+    padding: 4px;
+}
