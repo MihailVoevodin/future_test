@@ -14,3 +14,10 @@
 .filtrationWrapper div:first-child {
     margin-right: 10px;
 }
+
+@media (max-width: 400px) {
+    .filtrationWrapper span {
+        display: block;
+        padding-bottom: 10px;
+    }
+}

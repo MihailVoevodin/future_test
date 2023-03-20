@@ -4,12 +4,13 @@ import styles from 'Components/BooksList/BooksList.module.css';
 import bookImg from 'assets/book.png';
 import {Link} from 'react-router-dom';
 import { Spin } from 'antd';
-import {loadBooksList, setStartIndex} from 'Store/Slice';
+import {loadBooksList, loadPaginateBooksList, setStartIndex} from 'Store/Slice';
+import {Button} from 'antd';
 
 /**
  * Компонент списка книг.
  */
-export const BooksList = () => {
+export const BooksList: React.FC = () => {
     const dispatch = useAppDispatch()
     const {
         booksList,
@@ -21,6 +22,7 @@ export const BooksList = () => {
         errorMessage,
         isError,
         isLoading,
+        isPaginateLoad,
     } = useAppSelector((state) => state.books);
 
     const handleChangeStartIndex = () => {
@@ -32,9 +34,8 @@ export const BooksList = () => {
     }, [])
 
     useEffect(() => {
-        console.log(startIndex)
         if (startIndex > 0) {
-            dispatch(loadBooksList({inputValue, startIndex, sorting, filter}))
+            dispatch(loadPaginateBooksList({inputValue, startIndex, sorting, filter}))
         }
     }, [startIndex])
 
@@ -46,10 +47,10 @@ export const BooksList = () => {
                 <div className={styles.count}>Found {numberOfBooks} results</div>
                 {isError
                     ? <div>{errorMessage}</div>
-                    : <div className={styles.booksList}>
-                        {booksList.length > 0 && booksList.map((book: any) => {
+                    : <ul className={styles.booksList}>
+                        {booksList.length > 0 && booksList.map((book: IBook) => {
                             return (
-                                <div key={book.id}>
+                                <li key={book.id}>
                                     <Link to={`/book/${book.id}`}>
                                         <div className={styles.book}>
                                             <img
@@ -69,11 +70,11 @@ export const BooksList = () => {
                                             </div>
                                         </div>
                                     </Link>
-                                </div>
+                                </li>
                             )
                         })}
-                </div>}
-                {booksList.length > 0 && <button className={styles.paginateBtn} onClick={handleChangeStartIndex}>Load more</button>}
+                </ul>}
+                {booksList.length > 0 && <Button type='default' className={styles.paginateBtn} onClick={handleChangeStartIndex} loading={isPaginateLoad}>Load more</Button>}
         </div>}
     </>
     )

@@ -4,7 +4,10 @@ import {loadBooksList, setBooksList, setInputValue} from 'Store/Slice';
 import {SearchOutlined} from '@ant-design/icons';
 import styles from 'Components/Search/Search.module.css';
 
-export const Search = () => {
+/**
+ * Компонент поиска.
+ */
+export const Search: React.FC = () => {
     const dispatch = useAppDispatch()
     const {startIndex, inputValue, sorting, filter} = useAppSelector((state) => state.books);
 
@@ -15,7 +18,7 @@ export const Search = () => {
     }
 
     return (
-        <form onSubmit={onSubmit}>
+        <form name='Search' onSubmit={onSubmit}>
                 <input className={styles.input} onChange={(event) => dispatch(setInputValue((event.target.value)))} type='text' placeholder='Find books'/>
                 <button className={styles.button} type='submit'><SearchOutlined /></button>
         </form>

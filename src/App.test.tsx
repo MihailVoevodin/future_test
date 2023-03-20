@@ -1,11 +1,28 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import {Provider} from 'react-redux';
+import {store} from 'Store/Store';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(
-      <App />
-  );
+describe('App component', () => {
 
-  expect(getByText(/learn/i)).toBeInTheDocument();
+    test('App renders', () => {
+        render(
+            <Provider store={store}>
+                <App />
+            </Provider>
+        );
+
+        expect(screen.getByText(/search for books/i)).toBeInTheDocument();
+    })
+
+    test('App snapshot', () => {
+        const app = render(
+            <Provider store={store}>
+                <App />
+            </Provider>
+        );
+
+        expect(app).toMatchSnapshot();
+    })
 });

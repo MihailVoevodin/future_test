@@ -2,6 +2,7 @@
   "name": "future_test",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
     "@reduxjs/toolkit": "^1.9.3",
@@ -45,5 +46,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }

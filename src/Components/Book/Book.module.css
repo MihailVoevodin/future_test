@@ -9,6 +9,8 @@
     padding: 30px;
     max-height: 500px;
     max-width: 400px;
+    min-height: 500px;
+    min-width: 300px;
 }
 
 .bookContent {
@@ -31,4 +33,35 @@
 .bookDescription {
     font-size: 14px;
     text-align: justify;
+}
+
+@media (max-width: 760px) {
+    .bookWrapper {
+        display: block;
+        text-align: center;
+    }
+
+    .bookImg {
+        max-height: 400px;
+        max-width: 300px;
+        min-height: 300px;
+        min-width: 200px;
+    }
+
+    .bookContent {
+        margin-left: 0;
+    }
+
+    .bookTitle {
+        padding-top: 0;
+    }
+
+}
+
+@media (max-width: 400px) {
+    .bookImg {
+        height: 350px;
+        width: 270px;
+        padding: 10px;
+    }
 }

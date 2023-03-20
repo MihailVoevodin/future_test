@@ -44,10 +44,23 @@
 }
 
 .paginateBtn {
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    background-color: darkgray;
-    padding: 15px 20px;
     margin-bottom: 20px;
+}
+
+@media (max-width: 1024px) {
+    .booksList {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 760px) {
+    .booksList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 450px) {
+    .booksList {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

@@ -7,23 +7,23 @@ import './App.css';
 import {Search} from 'Components/Search/Search';
 
 function App() {
-  return (
-      <BrowserRouter>
-        <div className="App">
-            <header>
-                <h1 className='title'>Search for books</h1>
-                <Search />
-                <Filters />
-            </header>
-            <main>
-                <Routes>
-                    <Route path='/' element={<BooksList />} />
-                    <Route path='/book/:id' element={<Book />} />
-                </Routes>
-            </main>
-        </div>
-      </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <header>
+                    <h1 className='title'>Search for books</h1>
+                    <Search />
+                    <Filters />
+                </header>
+                <main>
+                    <Routes>
+                        <Route path='/' element={<BooksList />} />
+                        <Route path='/book/:id' element={<Book />} />
+                    </Routes>
+                </main>
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;

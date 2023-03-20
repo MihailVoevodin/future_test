@@ -14,3 +14,9 @@
     width: 31px;
     padding: 4px;
 }
+
+@media (max-width: 450px) {
+    .input {
+        width: 230px;
+    }
+}

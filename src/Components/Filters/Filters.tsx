@@ -1,21 +1,23 @@
 import {useAppDispatch, useAppSelector} from 'Common/Hooks';
-import React from "react"
+import {T} from 'Common/Text';
+import React, {ChangeEvent} from "react"
 import styles from 'Components/Filters/Filters.module.css';
 import {loadBooksList, setBooksList, setFilter, setSorting} from 'Store/Slice';
 
-
-export const Filters = () => {
+/**
+ * Компонент фильтрации и сортировки.
+ */
+export const Filters: React.FC = () => {
     const dispatch = useAppDispatch()
     const {startIndex, inputValue, sorting, filter} = useAppSelector((state) => state.books);
 
-    const handleChangeFilter = (e: any) => {
+    const handleChangeFilter = (e: ChangeEvent<HTMLSelectElement>) => {
         dispatch(setBooksList())
         dispatch(setFilter(e.target.value))
         dispatch(loadBooksList({inputValue, startIndex, sorting, filter: e.target.value}))
     }
 
-    const handleChangeSorting = (e: any) => {
-        console.log(e.target.value)
+    const handleChangeSorting = (e: ChangeEvent<HTMLSelectElement>) => {
         dispatch(setBooksList())
         dispatch(setSorting(e.target.value))
         dispatch(loadBooksList({inputValue, startIndex, sorting: e.target.value, filter}))
@@ -24,22 +26,15 @@ export const Filters = () => {
     return (
         <div className={styles.filtrationWrapper}>
             <div>
-                Categories
-                <select onChange={handleChangeFilter}>
-                    <option value="all">all</option>
-                    <option value="art">art</option>
-                    <option value="biography">biography</option>
-                    <option value="computers">computers</option>
-                    <option value="history">history</option>
-                    <option value="medical">medical</option>
-                    <option value="poetry">poetry</option>
+                <span>Categories</span>
+                <select data-testid="select" name='categories' onChange={handleChangeFilter}>
+                    {T.categories.map((category: string) => <option key={category} data-testid="select-option" value={category}>{category}</option>)}
                 </select>
             </div>
             <div>
-                Sorting by
-                <select onChange={handleChangeSorting}>
-                    <option value="relevance">relevance</option>
-                    <option value="newest">newest</option>
+                <span>Sorting by</span>
+                <select name='sorting' onChange={handleChangeSorting}>
+                    {T.sorting.map((sort: string) => <option key={sort} value={sort}>{sort}</option>)}
                 </select>
             </div>
         </div>

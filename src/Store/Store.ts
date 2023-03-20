@@ -1,12 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
-import BooksSlice from 'Store/Slice'
+import BooksSlice, {IState} from 'Store/Slice'
 
 /**
- * @param current - Ветка текущей погоды.
- * @param forecast - Ветка прогноза погоды.
+ * @param books - Ветка книг.
  */
 export interface IAppState {
-    books: any;
+    books: IState;
 }
 
 export const store = configureStore<IAppState>({

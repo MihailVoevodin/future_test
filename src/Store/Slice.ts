@@ -5,7 +5,6 @@ export const loadBooksList = createAsyncThunk(
     'books/getBooksList',
     async ({inputValue, startIndex, sorting, filter}: {inputValue: string, startIndex: number, sorting: string, filter: string}, {rejectWithValue, dispatch}) => {
         const response = await BooksService.getBooksList(inputValue, startIndex, sorting, filter);
-        console.log(response.data)
 
         if (!response.data.items) {
             dispatch(setIsError())
@@ -21,11 +20,24 @@ export const loadBooksList = createAsyncThunk(
     }
 );
 
+export const loadPaginateBooksList = createAsyncThunk(
+    'books/getPaginateBooksList',
+    async ({inputValue, startIndex, sorting, filter}: {inputValue: string, startIndex: number, sorting: string, filter: string}, {rejectWithValue}) => {
+        const response = await BooksService.getBooksList(inputValue, startIndex, sorting, filter);
+
+        if (response.status !== 200) {
+            return rejectWithValue('Server Error!');
+        }
+
+        return response.data;
+    }
+);
+
 export const loadBook = createAsyncThunk(
     'books/getBook',
     async (id: string | undefined, {rejectWithValue}) => {
         const response = await BooksService.getBook(id);
-        console.log(response.data)
+
         if (response.status !== 200) {
             return rejectWithValue('Server Error!');
         }
@@ -35,7 +47,7 @@ export const loadBook = createAsyncThunk(
 );
 
 /**
- * Интерфейс redux-ветки текущей погоды.
+ * Интерфейс redux-ветки книг.
  * @param inputValue Значение инпута поиска.
  */
 export interface IState {
@@ -43,12 +55,13 @@ export interface IState {
     isLoading: boolean;
     isError: boolean;
     errorMessage: string;
-    booksList: any;
+    booksList: IBook[];
     numberOfBooks: number;
     startIndex: number;
-    book: any;
+    book: Partial<IBook>;
     sorting: string;
     filter: string;
+    isPaginateLoad: boolean;
 }
 
 const initialState: IState = {
@@ -61,11 +74,12 @@ const initialState: IState = {
     startIndex: 0,
     book: {},
     sorting: 'relevance',
-    filter: 'all'
+    filter: 'all',
+    isPaginateLoad: false,
 };
 
 /**
- * Срез текущей погоды.
+ * Срез книг.
  */
 const BooksSlice = createSlice({
     name: 'books',
@@ -83,10 +97,10 @@ const BooksSlice = createSlice({
         setBook(state, action) {
             state.book = action.payload;
         },
-        setFilter(state, action) {
+        setFilter(state, action: PayloadAction<string>) {
             state.filter = action.payload;
         },
-        setSorting(state, action) {
+        setSorting(state, action: PayloadAction<string>) {
             state.sorting = action.payload;
         },
         setIsError(state) {
@@ -111,6 +125,21 @@ const BooksSlice = createSlice({
                 state.booksList = action.payload.items;
                 state.numberOfBooks = action.payload.totalItems;
                 state.isLoading = false;
+                state.isError = false;
+                state.errorMessage = '';
+            })
+            .addCase(loadPaginateBooksList.pending, (state) => {
+                state.isPaginateLoad = true;
+            })
+            .addCase(loadPaginateBooksList.rejected, (state) => {
+                state.isError = true;
+                state.errorMessage = 'No matching results';
+                state.isPaginateLoad = false;
+            })
+            .addCase(loadPaginateBooksList.fulfilled, (state, action) => {
+                state.booksList.push.apply(state.booksList, action.payload.items);
+                state.numberOfBooks = action.payload.totalItems;
+                state.isPaginateLoad = false;
                 state.isError = false;
                 state.errorMessage = '';
             })
